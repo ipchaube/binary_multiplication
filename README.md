@@ -13,4 +13,4 @@ Please use the below steps to start and use this application
 ```
 
 # Conclusing
-Please feel free to write me a not incase you need any help.
+Please feel free to write me a note incase you need any help.
