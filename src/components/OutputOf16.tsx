@@ -3,6 +3,7 @@ import {
   getDecimalBinary,
   getDecimalHexa,
   formatHexVal,
+  multiply
 } from "./../services/converter";
 
 interface Props {
@@ -12,14 +13,10 @@ interface Props {
 const OutputOf16 = ({ inputs }: Props) => {
   const [final, setFinal]: [Array<number>, any] = useState([]);
 
-  const multiply = (inputs: Array<number>): number => {
-    return inputs[0] * inputs[1];
-  };
-
   useEffect(() => {
-    const valStr = getDecimalBinary(multiply(inputs));
-    const arr = ("0".repeat(16 - valStr.length) + valStr).split("");
-    setFinal(arr);
+    const mul = multiply(inputs);
+    const fn = getDecimalBinary(mul, 16);
+    setFinal(fn);
   }, [inputs]);
 
   return (
@@ -53,7 +50,7 @@ const OutputOf16 = ({ inputs }: Props) => {
             </table>
           </td>
           <td className="zerox-col">
-            <span className="zerox">&nbsp;&nbsp;=&nbsp;&nbsp;0x</span>
+            <span className="zerox">&nbsp;&nbsp;=&nbsp;&nbsp;</span>
           </td>
           <td className="zerox-col">
             <span className="zerox">

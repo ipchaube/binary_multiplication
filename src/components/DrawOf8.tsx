@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import {getBinaryDecimal, getBinaryHex, formatHexVal} from "./../services/converter"
+import {getBinaryToDecimal, getBinaryToHex, formatHexVal} from "./../services/converter"
 
 interface Props {
   onChange: any;
@@ -13,7 +13,7 @@ const DrawOf8 = ({ onChange, type }: Props) => {
     let arr = [];
     arr = [...final];
     arr[index] = val === 1 ? 0 : 1;
-    onChange(getBinaryDecimal(arr));
+    onChange(getBinaryToDecimal(arr));
     setFinal(arr);
   };
 
@@ -53,15 +53,15 @@ const DrawOf8 = ({ onChange, type }: Props) => {
             </table>
           </td>
           <td className="zerox-col">
-            <span className="zerox">&nbsp;&nbsp;=&nbsp;&nbsp;0x</span>
+            <span className="zerox">&nbsp;&nbsp;=&nbsp;&nbsp;</span>
           </td>
-          <td className="zerox-col"><span className="zerox">{formatHexVal(getBinaryHex(final), 2)}</span></td>
+          <td className="zerox-col"><span className="zerox">{formatHexVal(getBinaryToHex(final), 2)}</span></td>
         </tr>
       </table>
       <table>
         <tr>
           <td>&nbsp;&nbsp;=&nbsp;&nbsp;</td>
-          <td><span className="zerox">{getBinaryDecimal(final)}</span></td>
+          <td><span className="zerox">{getBinaryToDecimal(final)}</span></td>
         </tr>
       </table>
     </Fragment>
