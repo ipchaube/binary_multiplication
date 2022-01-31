@@ -1,11 +1,7 @@
 const getBinaryToDecimal: any = (array: any): any => {
   try {
     if (array[0] === 1) {
-      const fn = [...array];
-      fn.shift();
-      const final = fn.map((val: any) => (val === 0 ? 1 : 0));
-      final.push(0);
-      return "-" + parseInt(final.join(""), 2);
+      return "-" + negetiveBinaryToDecimal(array);
     }
     return parseInt(array.join(""), 2);
   } catch (err) {
@@ -13,22 +9,23 @@ const getBinaryToDecimal: any = (array: any): any => {
   }
 };
 
+const negetiveBinaryToDecimal = (arr: any) => {
+  let value = 0;
+  const len = arr.length
+  for (let i = 1; i < len - 1; i++) {
+    value += ((arr[i] === 1) ? 0 : 1) * Math.pow(2, len - i - 1);
+  }
+
+  return value + ((arr[len - 1] === 0) ? 2 : 1);
+}
+
 const getBinaryToHex: any = (array: any): any => {
   let desVal: any = "0";
   if (array.length) {
-    desVal = getBinaryToDecimal(array);
+    desVal = parseInt(array.join(""), 2);
+    return (desVal >>> 0).toString(16).toUpperCase()
   }
-  let sign = "";
-  if (("" + desVal).charAt(0) === "-") {
-    const arr = desVal.split("");
-    arr.shift();
-    desVal = arr.join("");
-    desVal = getDecimalHexa(desVal);
-    sign = "-";
-  } else {
-    desVal = getDecimalHexa(desVal);
-  }
-  return sign + desVal; //((desVal >>> 0).toString(16)).toUpperCase();
+  return "N/A";
 };
 
 const getDecimalBinary: any = (val: any, bits = 16): any => {
@@ -41,28 +38,12 @@ const getDecimalBinary: any = (val: any, bits = 16): any => {
   }
 };
 
-const getDecimalHexa: any = (val: any): any => {
-  if (val >= 0) {
-    return (val >>> 0).toString(16);
-  }
-  const mn = val.toString().substring(1);
-  const hexa = "-" + (mn >>> 0).toString(16);
-  return hexa;
-};
-
 const formatHexVal = (val: any, num: number): any => {
   try {
-    let fn = "";
+    let finalValue = "";
     let sign = "0x";
-    const myChar = val.charAt(0);
-    if (myChar === "-") {
-      const newString = val.substring(1);
-      sign = "-0x";
-      fn = "0".repeat(num - newString.length) + newString;
-    } else {
-      fn = "0".repeat(num - val.length) + val;
-    }
-    return sign + fn.toUpperCase(); //"0x" + "0".repeat(num - val.length) + val;
+    finalValue = "0".repeat(num - val.length) + val;
+    return sign + finalValue.toUpperCase();
   } catch (err) {
     console.log(err);
     return "0".repeat(num);
@@ -77,7 +58,6 @@ export {
   getBinaryToDecimal,
   getBinaryToHex,
   getDecimalBinary,
-  getDecimalHexa,
   formatHexVal,
   multiply,
 };

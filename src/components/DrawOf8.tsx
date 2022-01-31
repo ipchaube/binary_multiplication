@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import {getBinaryToDecimal, getBinaryToHex, formatHexVal} from "./../services/converter"
+import { getBinaryToDecimal, getBinaryToHex, formatHexVal } from "./../services/converter"
 
 interface Props {
   onChange: any;
@@ -26,43 +26,49 @@ const DrawOf8 = ({ onChange, type }: Props) => {
   return (
     <Fragment>
       <table>
-        <tr>
-          <td>
-            <table>
-              <tr>
-                {final.map((val: number, index) => {
-                  return (
-                    <td className={index > 3 ? "nibble" : "dark nibble"}>
-                      {8 - index - 1}
-                    </td>
-                  );
-                })}
-              </tr>
-              <tr>
-                {final.map((val: number, index) => {
-                  return (
-                    <td
-                      className={index === 0 ? "sign" : "fraction"}
-                      onClick={() => onClickElement(val, index)}
-                    >
-                      {val}
-                    </td>
-                  );
-                })}
-              </tr>
-            </table>
-          </td>
-          <td className="zerox-col">
-            <span className="zerox">&nbsp;&nbsp;=&nbsp;&nbsp;</span>
-          </td>
-          <td className="zerox-col"><span className="zerox">{formatHexVal(getBinaryToHex(final), 2)}</span></td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    {final.map((val: number, index) => {
+                      return (
+                        <td key={"hd8" + index} className={index > 3 ? "nibble" : "dark nibble"}>
+                          {8 - index - 1}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                  <tr>
+                    {final.map((val: number, index) => {
+                      return (
+                        <td key={"data8" + index}
+                          className={index === 0 ? "sign" : "fraction"}
+                          onClick={() => onClickElement(val, index)}
+                        >
+                          {val}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td className="zerox-col">
+              <span className="zerox">&nbsp;&nbsp;=&nbsp;&nbsp;</span>
+            </td>
+            <td className="zerox-col"><span className="zerox">{formatHexVal(getBinaryToHex(final), 2)}</span></td>
+          </tr>
+        </tbody>
       </table>
       <table>
-        <tr>
-          <td>&nbsp;&nbsp;=&nbsp;&nbsp;</td>
-          <td><span className="zerox">{getBinaryToDecimal(final)}</span></td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>&nbsp;&nbsp;=&nbsp;&nbsp;</td>
+            <td><span className="zerox">{getBinaryToDecimal(final)}</span></td>
+          </tr>
+        </tbody>
       </table>
     </Fragment>
   );
